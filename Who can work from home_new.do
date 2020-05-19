@@ -8,6 +8,8 @@
 
 ********************************************************************************
 
+    use data_survey 
+    
     use sim_combined.dta
     merge m:1 isco88 using isco88_rli.dta
 
@@ -117,6 +119,15 @@ _______________________________________________________________________________
   asdoc ttest `var', by(low_rli) rowappend
 	 
 }
+
+  sum rli [aw=wgt] if educ==1
+  sum rli [aw=wgt] if educ==2
+  sum rli [aw=wgt] if educ==3
+  sum rli [aw=wgt] if educ==4
+  
+  sum rli [aw=wgt] if sex==1
+  sum rli [aw=wgt] if sex==2
+  
   table public    [aw=wgt], c(mean rli mean teleworkable mean earn) format(%4.2f) row
   table youth     [aw=wgt], c(mean rli mean teleworkable mean earn) format(%4.2f) row
   table urban     [aw=wgt], c(mean rli mean teleworkable mean earn) format(%4.2f) row
@@ -137,6 +148,51 @@ _______________________________________________________________________________
   
   
 /*
+
+********************************************************************************
+  
+/*
+  
+sum rli [aw=wgt] if educ==1
+ 
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli |  12,921  486061.372    .1956754   .1211795          0   .9090909
+
+sum rli [aw=wgt] if educ==2
+		 
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli |  52,982  1982089.19    .1910554    .125383          0   .9090909
+		 
+	 sum rli [aw=wgt] if educ==3
+		 
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli |  58,056  2177231.94     .251764   .1856038          0   .9090909
+		 
+sum rli [aw=wgt] if educ==4
+
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli |  19,692  740270.943    .4897033   .1883278          0   .9090909
+		 
+sum rli [aw=wgt] if sex==1	 
+		 
+
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli | 106,729  4004996.09    .2396311    .175729          0   .9090909
+		 
+
+sum rli [aw=wgt] if sex==2
+
+
+    Variable |     Obs      Weight        Mean   Std. Dev.       Min        Max
+-------------+-----------------------------------------------------------------
+         rli |  36,922  1380657.35    .3076356   .2114376          0   .9090909
+
+
 
 ********************************************************************************
 
@@ -167,21 +223,21 @@ Centre-West  | 132,232  4960566.94    .1667945   .3727937          0          1
 
 Two-sample t test with equal variances 
 
-  	                    obs1 	  obs2  Mean1 	Mean2 	  dif 	St_Err 	t_value p_value
+  	                    obs1 obs2  Mean1 	Mean2 	  dif 	St_Err 	t_value p_value
 						
  sex by low rli: 0 1	40480	132232	1.31	1.243	  .068	.003	  27.2	0
  educ by low rli: 0 1	40480	132232	3.092	2.522	  .571	.004	 123.55	0
  earn by low rli: 0 1	40480	132232	123.34	84.057	39.282	.262	 149.8	0
- urban by low rli: ~1	40480	132232	1.504	1.5	      .004	.003	   1.4	 .155
+ urban by low rli: ~1	40480	132232	1.504	1.5	  .004	.003	   1.4	 .155
  contract by low rl~1	40480	132232	1.996	1.998	 -.002	.004	   -.35	 .737
  formal by low rli:~1	40480	132232	1.502	1.501	  .002	.003	    .55	 .566
- public by low rli:~1	40480	132232	1.5	    1.5	      .002	.003	    .45	 .64
- offshor by low rli~1	40480	132232	.32	    .059	  .261	.005	  54.25	0
+ public by low rli:~1	40480	132232	1.5	1.5	  .002	.003	    .45	 .64
+ offshor by low rli~1	40480	132232	.32	 .059	  .261	.005	  54.25	0
  skill by low rli: ~1	40480	132232	1.583	2.301	 -.719	.004	-193.95	0
- youth by low rli: ~1	40480	132232	1.702	1.7	      .003	.003	    .85	 .387
+ youth by low rli: ~1	40480	132232	1.702	1.7	  .003	.003	    .85	 .387
  marital by low rli~1	40480	132232	2.503	2.501	  .003	.006	    .4	 .686
- position by low rl~1	40480	132232	3	    3	      0     	0	    .	 .
- status by low rli:~1	40480	132232	1	    1	      0	        0	    .	 .
+ position by low rl~1	40480	132232	3	3	      0     	0	    .	 .
+ status by low rli:~1	40480	132232	1	1	      0	        0	    .	 .
  sector by low rli:~1	40480	132232	3.013	3.002	  .01   .008       1.25	 .209
 
 ********************************************************************************
