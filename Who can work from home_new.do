@@ -8,8 +8,15 @@
 
 ********************************************************************************
 
-    use data_survey 
-    
+*Phuong, I hope this command will work for you:
+
+    global path_emilie Dropbox/COVID-firmes/Emilie
+    global isco88_rli.dta $path_emilie/isco88_rli.dta
+    use $path_emilie/sim_combined.dta, clear
+    merge m:1 isco88 using $isco88_rli.dta
+ 
+ *Otherwise:
+ 
     use sim_combined.dta
     merge m:1 isco88 using isco88_rli.dta
 
@@ -102,8 +109,6 @@ foreach y in formal sex age_40 educ r_cog r_man nr_man_phys nr_man_pers offshor 
 	   matrix coef_1_=e(b)'
 	   regress `y' low_rli [pweight = wgt] if low_rli==1 , robust 
 } 
-
-
 _______________________________________________________________________________
 
 
