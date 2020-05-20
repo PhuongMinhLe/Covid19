@@ -15,7 +15,10 @@ cd $data_index
   global X2 "i.edu i.b2.age_gr3 i.b1.region "
   global X3 "i.edu i.b2.age_gr3 i.b1.region i.b52.isco88_2"
   global X4 "i.sex i.educ earn i.urban i.contract i.formal i.public offshor i.skill i.youth i.marital i.industry" 
-  global X5 "i.sex i.skill above_50 i.no_educ" // The characteristics that should be considered as essentials.
+  global X4a "sex educ earn urban contract formal public offshor skill youth marital industry" 
+* Ce global sert à faire les t-test.
+  
+ global X5 "i.sex i.skill above_50 i.no_educ" // The characteristics that should be considered as essentials.
     
   *Fixed effect by indutry and governorate
   global fixed_effect "i.industry i.gouv "
@@ -154,6 +157,14 @@ _______________________________________________________________________________
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
   
+  probit low_rli $X4 $fixed_effect [pweight = wgt], vce(cluster isco88)
+  coefplot, drop(_cons) xline(0)
+  graph export "$Results\Graphs\"
+  
+  probit low_rli $X4 $fixed_effect [pweight = wgt], vce(cluster isco88)
+  coefplot, drop(_cons) xline(0)
+  graph export "$Results\Graphs\"
+  
   probit low_rli i.industry [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
@@ -173,6 +184,14 @@ _______________________________________________________________________________
   graph export "$Results\Graphs\"
   
   probit low_teleworkable $X3 $fixed_effect [pweight = wgt], vce(cluster isco88)
+  coefplot, drop(_cons) xline(0)
+  graph export "$Results\Graphs\"
+  
+  probit low_teleworkable $X4 $fixed_effect [pweight = wgt], vce(cluster isco88)
+  coefplot, drop(_cons) xline(0)
+  graph export "$Results\Graphs\"
+  
+  probit low_teleworkable $X5 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
   
