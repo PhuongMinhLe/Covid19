@@ -28,27 +28,27 @@ cd $data_index
   
   gen low_teleworkable=.
     replace low_teleworkable=1 if teleworkable <0.33
-	replace low_teleworkable=0 if teleworkable >0.33
+    replace low_teleworkable=0 if teleworkable >0.33
 	
   gen no_educ=.
     replace no_educ=1 if educ==1
-	replace no_educ=0 if educ>1
+    replace no_educ=0 if educ>1
 	
   gen above_15=.
     replace above_15=1 if age>=15
-	replace above_15=0 if age<15
+    replace above_15=0 if age<15
 	
   gen above_30=.
     replace above_30=1 if age>=30
-	replace above_30=0 if age<30
+    replace above_30=0 if age<30
   
   gen above_40=.
-    replace above_40=1 if age>=40
-	replace above_40=0 if age<40
+    replace above_40=1 if age>=40 
+    replace above_40=0 if age<40
 	
   gen above_50=.
     replace above_50=1 if age>=50
-	replace above_50=0 if age<50
+    replace above_50=0 if age<50
 /*
 
 ________________________________________________________________________________
