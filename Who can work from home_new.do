@@ -3,6 +3,9 @@
 clear all
 estimates clear
 
+*Package to install : 
+*ssc install asdoc
+
 cd $data_index
  
     use sim_combined.dta
@@ -124,8 +127,8 @@ ________________________________________________________________________________
   bys sex: sum rli   [aw=wgt]
   bys skill: sum rli [aw=wgt]
   
-  bys educ: sum teleworkable  [aw=wgt]
-  bys sex: sum teleworkable   [aw=wgt]
+  bys educ:  sum teleworkable [aw=wgt]
+  bys sex:   sum teleworkable [aw=wgt]
   bys skill: sum teleworkable [aw=wgt]
   
   table sex       [aw=wgt], c(mean rli mean teleworkable mean earn) format(%4.2f) row
@@ -135,6 +138,7 @@ ________________________________________________________________________________
   
 * Probit model to assess the significant characteristics of people with low_rli
 
+/*
   probit low_rli $X1 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
@@ -150,21 +154,24 @@ ________________________________________________________________________________
   probit low_rli $X4 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
-  
-  probit low_rli $X4 $fixed_effect [pweight = wgt], vce(cluster isco88)
+
+*/
+
+/*
+  xtprobit low_rli $X5 [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
   
-  probit low_rli i.industry [pweight = wgt], vce(cluster isco88)
+*/
+
+  probit low_rli $X5 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
   
-  probit low_rli i.isic3_2 [pweight = wgt], vce(cluster isco88)
-  coefplot, drop(_cons) xline(0)
-  graph export "$Results\Graphs\"
   
 *Probit model to assess the significant characteristics of people with low_teleworkable index
   
+/*
   probit low_teleworkable $X1 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
@@ -181,16 +188,14 @@ ________________________________________________________________________________
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
   
+*/
+/*
+  xtprobit low_teleworkable $X5 [pweight = wgt], vce(cluster isco88)
+  coefplot, drop(_cons) xline(0)
+  graph export "$Results\Graphs\"
+*/
+
   probit low_teleworkable $X5 $fixed_effect [pweight = wgt], vce(cluster isco88)
   coefplot, drop(_cons) xline(0)
   graph export "$Results\Graphs\"
-  
-  probit low_teleworkable i.industry [pweight = wgt], vce(cluster isco88)
-  coefplot, drop(_cons) xline(0)
-  graph export "$Results\Graphs\"
-  
-  probit low_teleworkable i.isic3_2 [pweight = wgt], vce(cluster isco88)
-  coefplot, drop(_cons) xline(0)
-  graph export "$Results\Graphs\"
-  
   
