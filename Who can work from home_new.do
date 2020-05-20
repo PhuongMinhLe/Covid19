@@ -36,7 +36,7 @@ cd $data_index
   gen no_educ=.
     replace no_educ=1 if educ==1
     replace no_educ=0 if educ>1
-	
+    
   gen above_15=.
     replace above_15=1 if age>=15
     replace above_15=0 if age<15
@@ -91,16 +91,6 @@ dimension y0”.
 
   https://bfi.uchicago.edu/wp-content/uploads/BFI_WP_202051.pdf
 ________________________________________________________________________________
-
-*/
-
-foreach y in formal sex age_40 educ r_cog r_man nr_man_phys nr_man_pers offshor rti rti_man {
-       regress `y' low_rli [pweight = wgt], robust 
-	   matrix coef_1_=e(b)'
-	   regress `y' low_rli [pweight = wgt] if low_rli==1 , robust 
-} 
-_______________________________________________________________________________
-
 
 * Descriptive analysis on low_rli and high_rli
 
