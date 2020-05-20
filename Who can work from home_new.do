@@ -16,7 +16,7 @@ cd $data_index
   global X3 "i.edu i.b2.age_gr3 i.b1.region i.b52.isco88_2"
   global X4 "i.sex i.educ earn i.urban i.contract i.formal i.public offshor i.skill i.youth i.marital i.industry" 
   global X4a "sex educ earn urban contract formal public offshor skill youth marital industry" 
-* Ce global sert à faire les t-test.
+* This global is for running t-test
   
  global X5 "i.sex i.skill above_50 i.no_educ" // The characteristics that should be considered as essentials.
     
