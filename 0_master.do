@@ -26,7 +26,7 @@ This master file allows to run all dofiles in 1 click.
 	}
 
 	if $user == 2 {
-	global dropbox "C:/emiliewojcieszynski294gasyv/Dropbox"
+	global dropbox "/Utilisateurs/emiliewojcieszynski294gasyv/Dropbox"
 	global person "Emilie"
 	}
 
