@@ -1,38 +1,13 @@
 ***********************Who can work from home ?*********************************
 
-	cls
-	clear all
-	set more off
-	capture log close
-	estimates clear
+clear all
+estimates clear
 
-********************************************************************************
-
-*Phuong, I hope this command will work for you:
-
-    global path_emilie Dropbox/COVID-firmes/Emilie
-    global isco88_rli.dta $path_emilie/isco88_rli.dta
-    use $path_emilie/sim_combined.dta, clear
-    merge m:1 isco88 using $isco88_rli.dta
- 
- *Otherwise:
+cd $data_index
  
     use sim_combined.dta
     merge m:1 isco88 using isco88_rli.dta
-
-/*
-
-    Result                           # of obs.
-    -----------------------------------------
-    not matched                        29,360
-        from master                    29,061  (_merge==1)
-        from using                        299  (_merge==2)
-
-    matched                           143,651  (_merge==3)
-    -----------------------------------------
-
-*/
-
+    
 *Set the globals
 
   *Explanatory variables
