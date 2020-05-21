@@ -38,9 +38,14 @@ replace occ_SS_tun_telework = -occ_SS_tun_telework
 
 *** Labelling and saving
 
-gen isco08_2d = int(isco08/100)
-lab val isco08_2d isco08_2d
-decode isco08_2d, gen(isco08_2d_title)
+*gen isco08_2d = int(isco08/100)
+*lab val isco08_2d isco08_2d
+*decode isco08_2d, gen(isco08_2d_title)
+
+***EW : here is the modification
+gen isco08_2d_reduced = int(isco08/100)
+lab val isco08_2d_reduced isco08_2d_reduced
+decode isco08_2d_reduced, gen(isco08_2d_reduced_title)
 				 
 save $data_index/supply_occ.dta, replace
 export delimited using "supply_occ.cvs", nolabel replace
