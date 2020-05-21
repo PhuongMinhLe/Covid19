@@ -120,20 +120,20 @@ lab def isco08_2d_reduced 11 "Chief Executives"                               //
                  12 "Managers"                                                ///
                  13 "Services Managers"                                       ///
                  14 "Other Services Managers"                                 ///
-                 21 "Science and Engineering Pro."                   ///
-                 22 "Health Pro."                                    ///
-                 23 "Teaching Pro."                                  ///
-                 24 "B&A Pro."               ///
-                 25 "ICT Pro." ///
-                 26 "Legal, Social and Cultural Pro."                ///
-                 31 "Science and Engineering Associate Pro."         ///
-                 32 "Health Associate Pro."                          ///
-                 33 "Business and Admin. Associate Pro."     ///
-                 34 "Legal, Social, Cultural and Related Associate Pro." ///
+                 21 "Science and Engineering Pro."                            ///
+                 22 "Health Pro."                                             ///
+                 23 "Teaching Pro."                                           ///
+                 24 "B&A Pro."                                                ///
+                 25 "ICT Pro."                                                ///
+                 26 "Legal, Social and Cultural Pro."                         ///
+                 31 "Science and Engineering Associate Pro."                  ///
+                 32 "Health Associate Pro."                                   ///
+                 33 "Business and Admin. Associate Pro."                      ///
+                 34 "Legal, Social, Cultural and Related Associate Pro."      ///
                  35 "I&C Technicians"              ///
                  41 "General and Keyboard Clerks"                             ///
                  42 "Customer Services Clerks"                                ///
-                 43 "Numerical & Material Recording Clerks"                 ///
+                 43 "Numerical & Material Recording Clerks"                   ///
                  44 "Other Clerical Support Workers"                          ///
                  51 "Personal Services Workers"                               ///
                  52 "Sales Workers"                                           ///
@@ -147,14 +147,14 @@ lab def isco08_2d_reduced 11 "Chief Executives"                               //
                  73 "Handicraft & Printing Workers"                         ///
                  74 "Electrical & Electronic Trades Workers"                ///
                  75 "Food Processing, Woodworking, Garment & Other Craft and Related Trades Workers" ///
-                 81 "Stationary Plant & Machine Operators"                  ///
+                 81 "Stationary Plant & Machine Operators"                    ///
                  82 "Assemblers"                                              ///
-                 83 "Drivers & Mobile Plant Operators"                      ///
-                 91 "Cleaners & Helpers"                                    ///
-                 92 "Agricultural, Forestry & Fishery Labourers"            ///
+                 83 "Drivers & Mobile Plant Operators"                        ///
+                 91 "Cleaners & Helpers"                                      ///
+                 92 "Agricultural, Forestry & Fishery Labourers"              ///
                  93 "Labourers in Mining, Construction, Manufacturing & Transport" ///
                  94 "Food Preparation Assistants"                             ///
-                 95 "Street and Related Sales & Services Workers"           ///
+                 95 "Street and Related Sales & Services Workers"             ///
                  96 "Refuse Workers and Other Elementary Workers"             ///
                   1 "Commissioned Armed Forces Officers"                      ///
                   2 "Non-commissioned Armed Forces Officers"                  ///
