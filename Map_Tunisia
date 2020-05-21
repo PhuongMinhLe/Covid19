@@ -1,0 +1,124 @@
+********************************************************************************
+**********************Do-file for making a map of Tunisia***********************
+********************************************************************************
+
+* https://www.stata.com/support/faqs/graphics/spmap-and-maps/
+* http://www.maplibrary.org/library/stacks/Africa/Tunisia/index.htm
+* https://www.data4tunisia.org/fr/datasets/decoupage-de-la-tunisie-geojson-et-shapefile/
+
+
+********************************************************************************
+
+  clear all
+  set maxvar 30000
+  query memory
+  
+*Package to install
+
+  ssc install sppack
+  ssc install shp2dta
+  ssc install spmap
+
+/*
+________________________________________________________________________________
+
+First, I merged sim_combined.dta with isco88_rli.dta so we can have rli by 
+gouvernorate.
+
+  use sim_combined.dta
+ 
+
+  merge m:1 isco88 using isco88_rli.dta
+
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        29,360
+        from master                    29,061  (_merge==1)
+        from using                        299  (_merge==2)
+
+    matched                           143,651  (_merge==3)
+    -----------------------------------------
+	
+	gen id_place=gouv
+	drop_merge
+________________________________________________________________________________
+
+
+
+Global 
+
+  global path "/Users/emiliewojcieszynski294gasyv/Desktop/Map Library/TUN_boundaries_SHP"
+  capture cd $path
+
+  shp2dta using TUN_boundaries.shp ,database(TUNdb) coordinates(TUNcoord) genid(id)
+  use TUNdb,clear
+  rename id id_place
+  merge 1:m id_place using "sim_combined_rli1.dta"
+
+
+
+merge 1:m id_place using "sim_combined_rli.dta"
+(note: variable id_place was byte, now float to accommodate using data's values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           347
+        from master                        48  (_merge==1)
+        from using                        299  (_merge==2)
+
+    matched                           172,712  (_merge==3)
+    -----------------------------------------
+
+
+ *by id_place, sort: egen mean_rli=mean(rli)
+  gen ID_1=_n
+  sort ID_1 
+  quietly by ID_1 : gen dup = cond(_N==1,0,_n)
+  drop if dup>1
+
+  spmap rli using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
+ *spmap mean_rli using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
+  graph save Graph "Map of the mean of RLI by region.gph", replace
+  graph export "Map of the mean of RLI by region.png", as(png) replace
+
+________________________________________________________________________________
+
+*/
+
+*With the file TUN_admin_SHP
+ 
+  
+  *global path "/Users/emiliewojcieszynski294gasyv/Desktop/Map Library/TUN_admin_SHP"
+   capture cd $path
+
+  shp2dta using TUN.shp ,database(TUNdb) coordinates(TUNcoord) genid(id)
+  use TUNdb,clear
+  rename id id_place
+  merge 1:m id_place using "sim_combined_rli.dta"
+  
+/*
+      Result                           # of obs.
+    -----------------------------------------
+    not matched                        93,786
+        from master                        16  (_merge==1)
+        from using                     93,770  (_merge==2)
+
+    matched                            79,241  (_merge==3)
+    -----------------------------------------
+*/
+
+ *by id_place, sort: egen mean_rli=mean(rli)
+  gen ID_1=_n
+  sort ID_1 
+  quietly by ID_1 : gen dup = cond(_N==1,0,_n)
+  drop if dup>1
+  
+  bysort gouv : egen rli_gouv=mean(rli)
+
+  *spmap rli using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
+   spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
+  *spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(custom)  clbreaks(0 0.25 0.255 0.26 0.265 0.3 0.4 0.5 0.6 0.7 )
+  
+   graph save Graph "Map of the mean of RLI by region.gph", replace
+   graph export "Map of the mean of RLI by region.png", as(png) replace
