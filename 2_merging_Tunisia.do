@@ -59,6 +59,10 @@ merge m:1 nat09 using `tun_essential', keep(1 3) nogen
 replace essential_tun = 1 if nat09==5040
 replace essential_tun = 0 if nat09==9810
 
+// Correct some activities *** EW: 5040 = Transports fluviaux de fret
+//                                 9810 = Activités indifférenciées des ménages en tant que producteurs de biens pour usage propre
+//-> both are correct
+
 *** Italian source
 merge m:1 isic4 using $data_index/isic_essential.dta, keep(1 3) nogen
 ren essential essential_ita
