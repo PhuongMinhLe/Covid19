@@ -97,7 +97,7 @@ recode isic4_2d ///
 			90/93 = 18 "R Arts, entertainment & recreation" ///
 			94/96 = 19 "S Other services" ///
 			97/98 = 20 "T Household self-production" ///
-			99 = 21 "Extraterritorial organizations", gen(isic4_broad)
+			99 = 21 "U Extraterritorial organizations", gen(isic4_broad)
 			decode isic4_reduced, gen(isic4_broad_title)
 
 save $data_index/supply_ind.dta, replace
