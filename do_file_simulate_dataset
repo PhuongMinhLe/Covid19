@@ -7,12 +7,18 @@ cls
   
 ***EW : Phuong, I matched isco08 et nat09 after and id variable defined as id=_n 
         and this is stored in Base.dta
+	
+/*
+Question : how can I merge two dataset without creating a new one ? For instance, 
+here Base.dta was created but can I do it just by using the official one
+in the drop box without creating Base.dta ?
+*/
 
   global data_sample $dropbox/COVID-firmes/Emilie
   cd $data_sample
   use Base.dta
   
-***EW : also, for the expansion of the variables
+***EW : also, for the expansion of the variables, I was able to set n=120967
 
   expand nat09
  *set obs 120967 // I cannot set the numbers of observations after expand : 
