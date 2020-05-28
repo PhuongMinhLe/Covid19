@@ -29,28 +29,16 @@ in the drop box without creating Base.dta ?
   keep if inrange(age, 15, 64) & work==1 
 * keep if inrange(age, 15, 64) & work==1 & position==3
 
-***Generate earnings
-
-  gen condition1=.
-    replace condition1=1 if position==3 & earn!=.
-  
-  gen condition2=.
-    replace condition2=1 if position!=3 & earn==.
-
-  gen earn_sim= rnormal(118.32,75)
-    count if earn_sim<0 //  there are 8,357 observations 
-    replace earn_sim=0 if earn_sim<0
-  
-  replace earn=earn_sim if condition1==1
-  replace earn=earn_sim if condition2==1
 
 ***Generating variables assessing the idiosyncratic characteristics.
 
+  gen year       = 2017
   gen age_t      = runiformint(15,64)
   gen sex_t      = runiformint(1,2)
   gen edu_lvl_t  = runiformint(1,4)
   gen nat09_t    = runiformint(125,9420)
   gen isco08_t   = runiformint(2330 ,9334)
+  gen hhsize_t   = runiformint(1,10)
   gen marital_t  = runiformint(1,2)
   gen position_t = runiformint(1,5)
   gen wgt_t      = runiformint(5,66)
@@ -58,8 +46,24 @@ in the drop box without creating Base.dta ?
   gen contract_t = runiformint(1,3)
   gen urban_t    = runiformint(1,2)
   gen gouv_t     = runiformint(11,61)
+
+
+  gen earn_sim= rnormal(118.32,75)
+    count if earn_sim<0 //  there are 8,357 observations 
+    replace earn_sim=0 if earn_sim<0
+
+    gen condition1=.
+    replace condition1=1 if position==3 & earn!=.
   
+    gen condition2=.
+    replace condition2=1 if position!=3 & earn==.
+  
+  replace earn=earn_sim if condition1==1
+  replace earn=earn_sim if condition2==1
+
 ***Age
+
+  rename age_t age
 
   recode age (15/24=1 "15-24")(25/44=2 "25-44")(45/64=3 "45-64"), gen(age_gr3)
   recode age (15/24=1 "15-24")(25/34=2 "25-34")(35/44=3 "35-44")(45/54=4 "45-54")(55/64=5 "55-64"), gen(age_gr5)
@@ -94,12 +98,12 @@ in the drop box without creating Base.dta ?
   17 "Bizerte" 21 "Beja" 22 "Jendouba" 23 "Le_kef" 24 "Siliana" 31 "Sousse" 32 "Monastir" ///
   33 "Mahdia" 34 "Sfax" 41 "Kairouan" 42 "Kasserine" 43 "Sidi_Bouzide" 51 "Gabes" ///
   52 "Mednine" 53 "Tataouine" 61 "Gafsa" 62 "Tozeur" 63 "Kebili"
-  lab del gouv 
+  lab val gouv gouv
+  
   
   *Sorting our data
-
+  
   sort age age_gr3 age_gr5 youth sex edu_lvl earn nat09 year isco08 hhsize marital position wgt public contract urban gouv
-  keep age age_gr3 age_gr5 youth sex edu_lvl earn nat09 year isco08 hhsize marital position wgt public contract urban gouv
   
   *save "$data_sample/sim_combined_emilie.dta", replace
 
