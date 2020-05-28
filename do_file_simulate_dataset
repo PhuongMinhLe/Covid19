@@ -1,0 +1,99 @@
+cls
+	set more off
+	capture log close
+	estimates clear
+
+*********************Simulation of a dataset************************************
+  
+***EW : Phuong, I matched isco08 et nat09 after and id variable defined as id=_n 
+        and this is stored in Base.dta
+
+  global data_sample $dropbox/COVID-firmes/Emilie
+  cd $data_sample
+  use Base.dta
+  
+***EW : also, for the expansion of the variables
+
+  expand nat09
+ *set obs 120967 // I cannot set the numbers of observations after expand : 
+  set seed 350000
+
+***I don't know which part of the population we work on, I let you choose : 
+
+  keep if inrange(age, 15, 64) & work==1 
+* keep if inrange(age, 15, 64) & work==1 & position==3
+
+***Generate earnings
+
+  gen condition1=.
+    replace condition1=1 if position==3 & earn!=.
+  
+  gen condition2=.
+    replace condition2=1 if position!=3 & earn==.
+
+  gen earn_sim= rnormal(118.32,75)
+    count if earn_sim<0 //  there are 8,357 observations 
+    replace earn_sim=0 if earn_sim<0
+  
+  replace earn=earn_sim if condition1==1
+  replace earn=earn_sim if condition2==1
+
+***Generating variables assessing the idiosyncratic characteristics.
+
+  gen age_t      = runiformint(15,64)
+  gen sex_t      = runiformint(1,2)
+  gen edu_lvl_t  = runiformint(1,4)
+  gen nat09_t    = runiformint(125,9420)
+  gen isco08_t   = runiformint(2330 ,9334)
+  gen marital_t  = runiformint(1,2)
+  gen position_t = runiformint(1,5)
+  gen wgt_t      = runiformint(5,66)
+  gen public_t   = runiformint(1,2)
+  gen contract_t = runiformint(1,3)
+  gen urban_t    = runiformint(1,2)
+  gen gouv_t     = runiformint(11,61)
+  
+***Age
+
+  recode age (15/24=1 "15-24")(25/44=2 "25-44")(45/64=3 "45-64"), gen(age_gr3)
+  recode age (15/24=1 "15-24")(25/34=2 "25-34")(35/44=3 "35-44")(45/54=4 "45-54")(55/64=5 "55-64"), gen(age_gr5)
+  recode age (15/29=1 "Youth")(20/64=2 "Non-youth"), gen(youth)
+  lab var youth "Youth"
+  order age_gr3 age_gr5 youth, after(age)
+  
+**Labelizing variables
+  
+  lab def sex 1 "Male" 2 "Female" , replace
+  lab val sex sex
+
+  lab def edu 1 "No-schooling" 2 "Primary" 3 "Secondary" 4 "Tertiary" , replace
+  lab val edu edu
+
+  lab def marital 1 "Single" 2 "Married" 3 "Widowed" 4 "Divorced" , replace
+  lab val marital marital 
+
+  lab def  position 1 "Employer" 2 " Self-employed " 3 "Employee " 4 "Family business worker" , replace
+  lab val  position  position
+
+  lab def sex 1 "Public" 2 "Private" , replace
+  lab val public public
+
+  lab def contract 1 "Fixed-term contract" 2 "Permanent contract" 3 "No contract" , replace
+  lab val contract contract
+
+  lab def urban 1 "Urban" 2 "Rural" , replace
+  lab val urban urban
+  
+  lab def gouv 11 "Tunis" 12 "Ariana" 13 "Ben_Arous" 14 "Manouba" 15 "Nabeul" 16 "Zaghouan" ///
+  17 "Bizerte" 21 "Beja" 22 "Jendouba" 23 "Le_kef" 24 "Siliana" 31 "Sousse" 32 "Monastir" ///
+  33 "Mahdia" 34 "Sfax" 41 "Kairouan" 42 "Kasserine" 43 "Sidi_Bouzide" 51 "Gabes" ///
+  52 "Mednine" 53 "Tataouine" 61 "Gafsa" 62 "Tozeur" 63 "Kebili"
+  lab del gouv 
+  
+  *Sorting our data
+
+  sort age age_gr3 age_gr5 youth sex edu_lvl earn nat09 year isco08 hhsize marital position wgt public contract urban gouv
+  keep age age_gr3 age_gr5 youth sex edu_lvl earn nat09 year isco08 hhsize marital position wgt public contract urban gouv
+  
+  *save "$data_sample/sim_combined_emilie.dta", replace
+
