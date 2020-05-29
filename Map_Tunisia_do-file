@@ -57,14 +57,16 @@ cd $data_index
 			(27=53 "TATAOUINE") (24=61 "GAFSA") (23=62 "TOZEUR") (22=63 "KEBILI"), ///
 			gen(id_place1) label(governorate)
 			
-   drop if id_place==19
-   drop if id_place==20
-   drop if id_place==26
+   drop if id_place1==19
+   drop if id_place1==20
+   drop if id_place1==26
    
+   There is BEJA who is coded twice* and there is no Gafsa 61
+   
+   rename id_place1 gouv
   merge 1:m id_place using "ENPE_combined_WFH.dta"
 
 			
- *In the package, Sfax and Mendine are coded with two number, respectively 17 18 and 25 26. Sfax is counted 3 times ?
  *by id_place, sort: egen mean_rli=mean(rli)
  
   gen ID_1=_n
