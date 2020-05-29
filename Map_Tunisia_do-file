@@ -64,7 +64,7 @@ cd $data_index
    There is BEJA who is coded twice* and there is no Gafsa 61
    
    rename id_place1 gouv
-  merge 1:m id_place using "ENPE_combined_WFH.dta"
+   merge 1:m gouv using "ENPE_combined_WFH.dta"
 
 			
  *by id_place, sort: egen mean_rli=mean(rli)
