@@ -16,7 +16,7 @@ clear all
 
 // globals to manage users
 		
-	global user 1 /* put 1 for Phuong and 2 for Emilie */
+	global user 2 /* put 1 for Phuong and 2 for Emilie */
 
 	if $user == 1 {
 	global dropbox "C:/Users/Dell/Dropbox"
@@ -36,13 +36,13 @@ clear all
 *********************Simulation of a dataset************************************
 
 cd
-cd $data_index
+cd "$data_index"
   
 *** Package to install
 
-  ssc install sppack
-  ssc install shp2dta
-  ssc install spmap
+ * ssc install sppack
+ * ssc install shp2dta
+ * ssc install spmap
 
   shp2dta using TUN.shp ,database(TUNdb) coordinates(TUNcoord) genid(id) // this command will create TUNdb.dta and TUNcoord.dta
   use TUNdb,clear
@@ -54,19 +54,17 @@ cd $data_index
 			(9=22 "JENDOUBA") (11=23 "LE_KEF") (10=24 "SILIANA") (18=31 "SOUSSE") ///
 			(16=32 "MONASTIR") (15=33 "MAHDIA") (17=34 "SFAX") (12=41 "KAIROUAN") ///
 			(13=42 "KASSERINE") (14=43 "SIDI_BOUZIDE") (24=51 "GABES") (25=52 "MEDNINE") ///
-			(27=53 "TATAOUINE") (24=61 "GAFSA") (23=62 "TOZEUR") (22=63 "KEBILI"), ///
+			(27=53 "TATAOUINE") (21=61 "GAFSA") (23=62 "TOZEUR") (22=63 "KEBILI"), ///
 			gen(id_place1) label(governorate)
 			
    drop if id_place1==19
    drop if id_place1==20
    drop if id_place1==26
    
-   There is BEJA who is coded twice* and there is no Gafsa 61
-   
    rename id_place1 gouv
    merge 1:m gouv using "ENPE_combined_WFH.dta"
-
 			
+ *In the package, Sfax and Mendine are coded with two number, respectively 17 18 and 25 26. Sfax is counted 3 times ?
  *by id_place, sort: egen mean_rli=mean(rli)
  
   gen ID_1=_n
@@ -79,8 +77,6 @@ cd $data_index
 *** here are different methods for plotting the map, the most used one is clmethod(quantile)
 
   spmap rli using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
- * spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
- * spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(custom)  clbreaks(0 0.25 0.255 0.26 0.265 0.27 1)
+  spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
+  *spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(custom)  clbreaks(0 0.25 0.255 0.26 0.265 0.27 1)
   
-   graph save Graph "Map of the mean of RLI by region.gph", replace
-   graph export "Map of the mean of RLI by region.png", as(png) replace
