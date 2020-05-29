@@ -80,3 +80,5 @@ cd "$data_index"
   spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(quantile)
   *spmap rli_gouv using TUNcoord.dta, id(ID_1) fcolor(Blues) clmethod(custom)  clbreaks(0 0.25 0.255 0.26 0.265 0.27 1)
   
+   graph save Graph "Map of the mean of RLI by region.gph", replace
+   graph export "Map of the mean of RLI by region.png", as(png) replace
