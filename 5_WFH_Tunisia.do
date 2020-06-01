@@ -343,6 +343,7 @@ preserve
 	reg teleworkable no_coll male age50 couple formal urban i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08) 
 
 	keep if earn>0 & earn!=.
+	foreach list or var low_rli teleworkable{
 	reg low_rli no_coll male youth couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
 	reg low_rli no_coll male age40 couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
 	reg low_rli no_coll male age50 couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
@@ -357,6 +358,21 @@ preserve
 	reg teleworkable no_coll male age50 couple formal urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08) 
 restore
 
+cap erase mydox_rli_teleworkability.docx, replace
+foreach var of varlist low_rli teleworkable {
+        reg `var' no_coll male youth couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
+	outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_youth_permanent) 
+        reg `var' no_coll male age40 couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
+        outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_40_permanent) 
+	reg `var' no_coll male age50 couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
+	outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_50_permanent) 
+	reg `var' no_coll male youth couple formal urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
+	outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_youth_formal) 
+	reg `var' no_coll male age40 couple formal urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08)
+	outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_40_formal) 
+	reg `var' no_coll male age50 couple formal urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08) 
+	outreg2 using mydox_rli_teleworkability.docx, drop(i.gouv i.isic4_reduced) ctitle (`var'_50_formal) 
+	 }
 
 *** Aggregation 
 
