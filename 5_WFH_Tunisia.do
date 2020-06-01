@@ -387,41 +387,35 @@ collapse (mean) rli infect_expo physic_prox teleworkable (rawsum) wgt obs [pw=wg
 restore
 
 *************************Outreg*************************************************
-/*
-
 
 foreach X in X30 {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (Self employed)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (Self employed_X30)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, robust // X
   outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Household worker)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, vce(cluster isco08)  // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append ctitle (Household worker)
-
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append ctitle (Household worker_X30)
  }
  
  
 foreach X in X40 {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, robust  // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (Self employed)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed_X40)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, vce(cluster isco08) //X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed)
-
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed_40)
  }
  
  foreach X in X50 {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (Self employed)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed_50)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, vce(cluster isco08) //X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Self employed_50)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Household worker)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Household worker_50)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, vce(cluster isco08) // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append ctitle (Household worker)
-
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append ctitle (Household worker_50)
  }
  
-
  
  foreach X in X30_wagewkr {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
@@ -433,38 +427,32 @@ foreach X in X40 {
     outreg2 using myreg.doc, replace  ctitle (X30_wagewkr_inf)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, vce(cluster isco08) //X
    outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X30_wagewkr_inf)
-
   }
   
  foreach X in  X40_wagewkr {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (X40_wagewkr)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X40_wagewkr)
   reg low_teleworkable $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
    outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X40_wagewkr)
-
   }
-
  foreach X in  X40_wagewkr_inf {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (X40_wagewkr_inf)
-
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X40_wagewkr_inf)
   }
   
  foreach X in  X50_wagewkr {
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (X50_wagewkr)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X50_wagewkr)
   reg low_teleworkable $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
    outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X50_wagewkr)
   }
-
  foreach X in  X50_wagewkr_inf{
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
-  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) replace  ctitle (X50_wagewkr_inf)
+  outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X50_wagewkr_inf)
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, vce(cluster isco08) //X
   outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X50_wagewkr_inf)
   reg low_teleworkable $`X' i.gouv i.isic4_reduced [pw = wgt] if wagewkr == 1, robust // X
    outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (X50_wagewkr_inf)
-
   }
   
   
@@ -473,11 +461,7 @@ preserve
 	reg teleworkable no_coll male youth couple permanent urban i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08) // X
 	 outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (Private & non-essential industries)
 	
-
 	keep if earn>0 & earn!=.
 	reg teleworkable no_coll male youth couple permanent urban i.qnt_earn i.gouv i.isic4_reduced [pw = wgt], vce(cluster isco08) // X
 	 outreg2 using myreg.doc, drop(i.gouv i.isic4_reduced) append  ctitle (earnings)
-
 restore
-
-*/
