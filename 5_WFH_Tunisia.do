@@ -388,9 +388,10 @@ restore
 
 *************************Outreg*************************************************
 
-*1 - For each variable + selected regressions : we will have myreg_X30.docx, myreg_X40.docx and  myreg_X50.docx
+*1 - For each variable + selected regressions : we will have myreg_X30.docx, myreg_X40.docx and  myreg_X50.docx.
+    *The two last reg for public sector and earnings are attached to myreg_X30.docx.
 *2 - For each loop
-*3 - Selection of regressions
+
 
 ********************************************************************************
 
