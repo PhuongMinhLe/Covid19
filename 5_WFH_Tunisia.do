@@ -496,11 +496,11 @@ restore
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, robust // X
   outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced)  ctitle ($`X'_Self employed) 
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if selfemp == 1, vce(cluster isco08) //X
-  outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced)  ctitle ($`X'_Self employed) 
+  outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced)  ctitle ($`X'_Self employed_cluster) 
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, robust // X
   outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced)  ctitle ($`X'_Household worker) 
   reg low_rli $`X' i.gouv i.isic4_reduced [pw = wgt] if hhwkr == 1, vce(cluster isco08) // X
-  outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced) ctitle ($`X'_Household worker) 
+  outreg2 using mydox1.docx, drop(i.gouv i.isic4_reduced) ctitle ($`X'_Household worker_cluster) 
  }
  
   cap erase mydox2.docx
